@@ -45,7 +45,7 @@ public class ConsignmentForm extends DocumentEditor {
         return new Consignment (parseDate(date.getText()),
                 number.getText(),
                 user.getText(),
-                "Consignment",
+                "Накладная",
                 currency.getText(),
                 product.getText(),
                 Double.parseDouble(currencyValue.getText()),

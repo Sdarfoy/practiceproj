@@ -16,7 +16,6 @@ public abstract class DocumentEditor extends JDialog {
         setVisible(true);
     }
     public LocalDate parseDate (String date) {
-            LocalDate date1 = LocalDate.parse(date);
-            return  date1;
+            return LocalDate.parse(date);
     }
 }

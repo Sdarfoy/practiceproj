@@ -8,6 +8,10 @@ import java.util.Date;
 
 public class testcases {
     public static void main(String[] args) {
+        String string = "номер: один " + System.lineSeparator() + "Пользователь: юзер";
+        String[] list = string.split("\n|\\: ");
+        System.out.println(list[1]);
+
     }
     public static Date parseDate (String date) {
         try {

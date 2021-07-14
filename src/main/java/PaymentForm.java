@@ -48,7 +48,7 @@ public class PaymentForm extends DocumentEditor {
                employer.getText(),
                number.getText(),
                user.getText(),
-               "Payment",
+               "Платёжка",
                Double.parseDouble(sum.getText()));
     }
 

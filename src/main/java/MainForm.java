@@ -3,6 +3,9 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.*;
 import java.io.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainForm extends JFrame {
@@ -115,10 +118,46 @@ public class MainForm extends JFrame {
         }
     }
 
-    public void fileIntoDoc(String string) {
-        String[] itemArray = string.split(System.lineSeparator());
-        String[] fieldsArray = new String[itemArray.length];
-        for (String fields:itemArray) {
+    public LocalDate parseDate (String date) {
+        return  LocalDate.parse(date);
+    }
+
+    public Document stringToDoc(String string) {
+        String[] fields = string.split("\n|\\: ");
+        switch (fields[1]) {
+            case ("Платёжка"):
+                return new Payment (
+                        parseDate(fields[3]),
+                        fields[5],
+                        fields[7],
+                        fields[9],
+                        fields[1],
+                        Double.parseDouble(fields[13]));
+                break;
+            case ("Заявка"):
+                return new Request (
+                        parseDate(fields[3]),
+                        fields[5],
+                        fields[7],
+                        fields[9],
+                        fields[11],
+                        fields[1],
+                        Double.parseDouble(fields[15]),
+                        Double.parseDouble(fields[17]),
+                        Double.parseDouble(fields[19]));
+                break;
+            case ("Накладная"):
+                return new Consignment (
+                        parseDate(fields[3]),
+                        fields[5],
+                        fields[7],
+                        fields[1],
+                        fields[11],
+                        fields[13],
+                        Double.parseDouble(fields[15]),
+                        Double.parseDouble(fields[17]),
+                        Double.parseDouble(fields[19]));
+                break;
         }
     }
 }

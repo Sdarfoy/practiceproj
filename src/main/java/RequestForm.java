@@ -46,7 +46,7 @@ public class RequestForm extends DocumentEditor {
                 user.getText(),
                 currency.getText(),
                 counterParty.getText(),
-                "Request",
+                "Заявка",
                 Double.parseDouble(commission.getText()),
                 Double.parseDouble(sum.getText()),
                 Double.parseDouble(currencyValue.getText()));

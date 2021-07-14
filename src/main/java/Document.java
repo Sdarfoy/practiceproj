@@ -15,7 +15,8 @@ public abstract class Document {
     public abstract String getTranslatedDocType();
 
     public String toStringField() {
-        return "Пользователь: " + user + System.lineSeparator() +
+        return "Тип документа: " + docType + System.lineSeparator() +
+                "Пользователь: " + user + System.lineSeparator() +
                 "Номер документа:  " + number + System.lineSeparator() +
                 getOtherFields() +
                 "Сумма: " + sum + System.lineSeparator() +
