@@ -55,8 +55,9 @@ public class MainForm extends JFrame {
         saveDocument.addActionListener(actionEvent -> {
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fileChooser.showSaveDialog(MainForm.this);
-            File file = fileChooser.getSelectedFile();
             try {
+                documents.get(listOfItems.getSelectedIndex()).toStringField();
+                File file = fileChooser.getSelectedFile();
                 File fileToSave = new File(file + ".txt");
                 try (PrintWriter pw = new PrintWriter(new FileWriter(fileToSave))) {
                     pw.println(documents.get(listOfItems.getSelectedIndex()).toStringField());
