@@ -24,6 +24,7 @@ public class MainForm extends JFrame {
     private JButton viewDocument;
     private final DefaultListModel<String> defaultListModel = new DefaultListModel<>();
     private JList<String> listOfItems;
+    private JScrollPane scrollPane;
     private final List<Document> documents;
 
     public MainForm(List<Document> documents) {
@@ -52,17 +53,18 @@ public class MainForm extends JFrame {
         request.addActionListener(actionEvent -> requestForm.showForm());
 
         saveDocument.addActionListener(actionEvent -> {
+            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             fileChooser.showSaveDialog(MainForm.this);
             File file = fileChooser.getSelectedFile();
             try {
-                File fileToSave = new File(file.getAbsolutePath() + ".txt");
+                File fileToSave = new File(file + ".txt");
                 try (PrintWriter pw = new PrintWriter(new FileWriter(fileToSave))) {
                     pw.println(documents.get(listOfItems.getSelectedIndex()).toStringField());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(MainForm.this, "Не удалось сохранить документ");
             }
         });
 
