@@ -33,7 +33,6 @@ public class MainForm extends JFrame {
         paymentForm = new PaymentForm(this, documents);
         requestForm = new RequestForm(this, documents);
         fileChooser = new JFileChooser("/home/shmelev_ne");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         setContentPane(contentPane);
         pack();
         listOfItems.setModel(defaultListModel);
@@ -54,15 +53,26 @@ public class MainForm extends JFrame {
 
         saveDocument.addActionListener(actionEvent -> {
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            fileChooser.showSaveDialog(MainForm.this);
+            int result = fileChooser.showSaveDialog(MainForm.this);
             try {
                 documents.get(listOfItems.getSelectedIndex()).toStringField();
                 File file = fileChooser.getSelectedFile();
-                File fileToSave = new File(file + ".txt");
-                try (PrintWriter pw = new PrintWriter(new FileWriter(fileToSave))) {
-                    pw.println(documents.get(listOfItems.getSelectedIndex()).toStringField());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = new File(file + ".txt");
+                    if (fileToSave.exists()) {
+                        int option = JOptionPane.showConfirmDialog(MainForm.this, "Перезаписать файл", "Файл с таким названием уже существует, перезаписать файл?", JOptionPane.YES_NO_CANCEL_OPTION);
+                        if (option == 0) {
+                            PrintWriter pw = new PrintWriter(new FileWriter(fileToSave));
+                            pw.println(documents.get(listOfItems.getSelectedIndex()).toStringField());
+                            pw.close();
+                        }
+                    } else {
+                        try (PrintWriter pw = new PrintWriter(new FileWriter(fileToSave))) {
+                            pw.println(documents.get(listOfItems.getSelectedIndex()).toStringField());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(MainForm.this, "Не удалось сохранить документ");
@@ -72,6 +82,7 @@ public class MainForm extends JFrame {
         loadDocument.addActionListener(actionEvent -> {
             try {
                 FileFilter fileFilter = new FileNameExtensionFilter("Notepad file", "txt");
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
                 fileChooser.setFileFilter(fileFilter);
                 fileChooser.showOpenDialog(MainForm.this);
                 File file = fileChooser.getSelectedFile();
