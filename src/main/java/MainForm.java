@@ -6,6 +6,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -36,7 +37,6 @@ public class MainForm extends JFrame {
         setContentPane(contentPane);
         pack();
         listOfItems.setModel(defaultListModel);
-        refresh();
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {
@@ -86,7 +86,7 @@ public class MainForm extends JFrame {
                 fileChooser.setFileFilter(fileFilter);
                 fileChooser.showOpenDialog(MainForm.this);
                 File file = fileChooser.getSelectedFile();
-                documents.add(stringToDoc(FileUtils.readFileToString(file, StandardCharsets.UTF_8)));
+                documents.add(stringToDoc(Files.readString(file.toPath(), StandardCharsets.UTF_8)));
                 refresh();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -124,44 +124,7 @@ public class MainForm extends JFrame {
         }
     }
 
-    public LocalDate parseDate (String date) {
-        return  LocalDate.parse(date);
-    }
-
     public Document stringToDoc(String string) {
-        String[] fields = string.split("\n|: ");
-        switch (fields[1]) {
-            case ("Платёжка"):
-                return new Payment (
-                        parseDate(fields[11]),
-                        fields[7],
-                        fields[5],
-                        fields[3],
-                        fields[1],
-                        Double.parseDouble(fields[9]));
-            case ("Заявка"):
-                return new Request (
-                        parseDate(fields[17]),
-                        fields[5],
-                        fields[3],
-                        fields[9],
-                        fields[7],
-                        fields[1],
-                        Double.parseDouble(fields[13]),
-                        Double.parseDouble(fields[15]),
-                        Double.parseDouble(fields[11]));
-            case ("Накладная"):
-                return new Consignment (
-                        parseDate(fields[15]),
-                        fields[5],
-                        fields[3],
-                        fields[1],
-                        fields[11],
-                        fields[7],
-                        Double.parseDouble(fields[13]),
-                        Double.parseDouble(fields[9]),
-                        Double.parseDouble(fields[15]));
-            default: return null;
-        }
+        return Document.parseDoc(string);
     }
 }
