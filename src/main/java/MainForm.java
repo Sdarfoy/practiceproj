@@ -1,8 +1,12 @@
+import org.apache.commons.io.FileUtils;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +36,7 @@ public class MainForm extends JFrame {
         paymentForm = new PaymentForm(this, documents);
         requestForm = new RequestForm(this, documents);
         fileChooser = new JFileChooser("/home/shmelev_ne");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         setContentPane(contentPane);
         pack();
         listOfItems.setModel(defaultListModel);
@@ -63,10 +68,7 @@ public class MainForm extends JFrame {
         saveDocument.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                FileFilter fileFilter = new FileNameExtensionFilter("Notepad file", "txt");
-                fileChooser.setFileFilter(fileFilter);
                 fileChooser.showSaveDialog(MainForm.this);
-                fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
                 File file = fileChooser.getSelectedFile();
                 try {
                     File fileToSave = new File(file.getAbsolutePath() + ".txt");
@@ -80,6 +82,21 @@ public class MainForm extends JFrame {
                 }
             }
         });
+        loadDocument.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                FileFilter fileFilter = new FileNameExtensionFilter("Notepad file", "txt");
+                fileChooser.setFileFilter(fileFilter);
+                fileChooser.showOpenDialog(MainForm.this);
+                File file = fileChooser.getSelectedFile();
+                try {
+                    documents.add(stringToDoc(FileUtils.readFileToString(file, StandardCharsets.UTF_8)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                refresh();
+            }
+        });
         viewDocument.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -91,12 +108,6 @@ public class MainForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 onCancel();
-            }
-        });
-        loadDocument.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
             }
         });
     }
@@ -127,37 +138,35 @@ public class MainForm extends JFrame {
         switch (fields[1]) {
             case ("Платёжка"):
                 return new Payment (
-                        parseDate(fields[3]),
-                        fields[5],
+                        parseDate(fields[11]),
                         fields[7],
-                        fields[9],
+                        fields[5],
+                        fields[3],
                         fields[1],
-                        Double.parseDouble(fields[13]));
-                break;
+                        Double.parseDouble(fields[9]));
             case ("Заявка"):
                 return new Request (
-                        parseDate(fields[3]),
+                        parseDate(fields[17]),
                         fields[5],
-                        fields[7],
+                        fields[3],
                         fields[9],
-                        fields[11],
+                        fields[7],
                         fields[1],
+                        Double.parseDouble(fields[13]),
                         Double.parseDouble(fields[15]),
-                        Double.parseDouble(fields[17]),
-                        Double.parseDouble(fields[19]));
-                break;
+                        Double.parseDouble(fields[11]));
             case ("Накладная"):
                 return new Consignment (
-                        parseDate(fields[3]),
+                        parseDate(fields[15]),
                         fields[5],
-                        fields[7],
+                        fields[3],
                         fields[1],
                         fields[11],
-                        fields[13],
-                        Double.parseDouble(fields[15]),
-                        Double.parseDouble(fields[17]),
-                        Double.parseDouble(fields[19]));
-                break;
+                        fields[7],
+                        Double.parseDouble(fields[13]),
+                        Double.parseDouble(fields[9]),
+                        Double.parseDouble(fields[15]));
+            default: return null;
         }
     }
 }
