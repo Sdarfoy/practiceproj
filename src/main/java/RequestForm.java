@@ -21,21 +21,24 @@ public class RequestForm extends DocumentEditor {
 
     RequestForm(MainForm mainForm, List<Document> listOfDocs) {
         this.mainForm = mainForm;
+        this.setTitle("Заявка");
         setContentPane(panel);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
+                clearTextFields();
                 dispose();
             }
         });
 
-        makeRequest.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
+        makeRequest.addActionListener(actionEvent -> {
+            try {
                 listOfDocs.add(createDocument());
                 dispose();
                 clearTextFields();
                 mainForm.refresh();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(mainForm, "Не все поля заполнены корректно");
             }
         });
     }

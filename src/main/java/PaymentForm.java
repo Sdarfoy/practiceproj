@@ -1,14 +1,6 @@
-
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PaymentForm extends DocumentEditor {
@@ -23,24 +15,27 @@ public class PaymentForm extends DocumentEditor {
 
     public PaymentForm(MainForm mainForm, List<Document> listOfDocs) {
         this.mainForm = mainForm;
+        this.setTitle("Платёжка");
         setContentPane(panel);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
+                clearTextFields();
                 dispose();
             }
         });
 
-        makePayment.addActionListener (new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-
+        makePayment.addActionListener (actionEvent -> {
+            try {
                 listOfDocs.add(createDocument());
                 dispose();
                 clearTextFields();
                 mainForm.refresh();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(mainForm, "Не все поля заполнены корректно");
             }
-        } );
+        });
     }
 
     public Document createDocument() {

@@ -1,8 +1,6 @@
-import java.nio.file.Path;
 import java.time.LocalDate;
 
 public abstract class Document {
-    protected Path file;
     protected LocalDate date;
     protected String user, docType, number;
     protected double sum;
@@ -17,7 +15,7 @@ public abstract class Document {
     public String toStringField() {
         return "Тип документа: " + docType + System.lineSeparator() +
                 "Пользователь: " + user + System.lineSeparator() +
-                "Номер документа:  " + number + System.lineSeparator() +
+                "Номер документа: " + number + System.lineSeparator() +
                 getOtherFields() +
                 "Сумма: " + sum + System.lineSeparator() +
                 "Дата: " + date;

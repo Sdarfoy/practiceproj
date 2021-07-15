@@ -1,5 +1,4 @@
 import java.time.LocalDate;
-import java.util.*;
 
 public class Consignment extends Document {
     private final String currency;
