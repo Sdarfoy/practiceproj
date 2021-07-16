@@ -58,7 +58,7 @@
           <text value="Пользователь"/>
         </properties>
       </component>
-      <component id="24677" class="javax.swing.JLabel">
+      <component id="24677" class="javax.swing.JLabel" binding="lNumber">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -74,7 +74,7 @@
           <text value="Валюта"/>
         </properties>
       </component>
-      <component id="ad3ef" class="javax.swing.JLabel">
+      <component id="ad3ef" class="javax.swing.JLabel" binding="lCurrencyValue">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -82,7 +82,7 @@
           <text value="Курс валюты"/>
         </properties>
       </component>
-      <component id="c1c6a" class="javax.swing.JLabel">
+      <component id="c1c6a" class="javax.swing.JLabel" binding="lSum">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -137,7 +137,7 @@
           <text value="Товар"/>
         </properties>
       </component>
-      <component id="88cf8" class="javax.swing.JLabel">
+      <component id="88cf8" class="javax.swing.JLabel" binding="lAmount">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -145,12 +145,12 @@
           <text value="Количество"/>
         </properties>
       </component>
-      <component id="6405b" class="javax.swing.JLabel">
+      <component id="6405b" class="javax.swing.JLabel" binding="lDate">
         <constraints>
           <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Дата (yyyy-mm-dd)"/>
+          <text value="Дата"/>
         </properties>
       </component>
       <component id="7bf13" class="javax.swing.JTextField" binding="date">

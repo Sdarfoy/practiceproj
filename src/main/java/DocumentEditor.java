@@ -1,4 +1,7 @@
+import org.jdesktop.swingx.prompt.PromptSupport;
+
 import javax.swing.*;
+import java.awt.*;
 import java.time.LocalDate;
 
 public abstract class DocumentEditor extends JDialog {
@@ -8,7 +11,12 @@ public abstract class DocumentEditor extends JDialog {
         setModal(true);
         setVisible(true);
     }
-    public LocalDate parseDate (String date) {
-            return LocalDate.parse(date);
+
+    public void setStyle(String string, JTextField field) {
+        field.setText("");
+        PromptSupport.setPrompt(string, field);
+        PromptSupport.setFontStyle(Font.BOLD, field);
+        PromptSupport.setForeground(Color.lightGray, field);
+        PromptSupport.setFocusBehavior(PromptSupport.FocusBehavior.SHOW_PROMPT, field);
     }
 }

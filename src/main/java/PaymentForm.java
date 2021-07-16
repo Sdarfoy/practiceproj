@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.time.LocalDate;
 import java.util.List;
 
 public class PaymentForm extends DocumentEditor {
@@ -18,6 +19,7 @@ public class PaymentForm extends DocumentEditor {
         this.setTitle("Платёжка");
         setContentPane(panel);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        clearTextFields();
 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -39,7 +41,7 @@ public class PaymentForm extends DocumentEditor {
     }
 
     public Document createDocument() {
-       return new Payment (parseDate(date.getText()),
+       return new Payment (LocalDate.parse(date.getText()),
                employer.getText(),
                number.getText(),
                user.getText(),
@@ -48,9 +50,9 @@ public class PaymentForm extends DocumentEditor {
     }
 
     public void clearTextFields() {
-        date.setText("");
+        setStyle("2000-01-01", date);
         employer.setText("");
-        number.setText("");
+        setStyle("P000" , number);
         user.setText("");
         sum.setText("");
     }

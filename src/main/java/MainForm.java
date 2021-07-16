@@ -84,9 +84,10 @@ public class MainForm extends JFrame {
                 FileFilter fileFilter = new FileNameExtensionFilter("Notepad file", "txt");
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
                 fileChooser.setFileFilter(fileFilter);
-                fileChooser.showOpenDialog(MainForm.this);
+                int result = fileChooser.showOpenDialog(MainForm.this);
                 File file = fileChooser.getSelectedFile();
-                documents.add(stringToDoc(Files.readString(file.toPath(), StandardCharsets.UTF_8)));
+                if (result == JFileChooser.APPROVE_OPTION)
+                documents.add(Document.parseDoc(Files.readString(file.toPath(), StandardCharsets.UTF_8)));
                 refresh();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -124,7 +125,4 @@ public class MainForm extends JFrame {
         }
     }
 
-    public Document stringToDoc(String string) {
-        return Document.parseDoc(string);
-    }
 }
