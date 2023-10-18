@@ -31,10 +31,10 @@ public class Consignment extends Document {
     }
     @Override
     public  String getOtherFields() {
-        return "Товар: " + product + System.lineSeparator() +
-                "Количество: " + amount + System.lineSeparator() +
-                "Валюта: " + currency + System.lineSeparator() +
-                "Курс валюты: " + currencyValue + System.lineSeparator();
+        return "Товар: " + product + "\n" +
+                "Количество: " + amount + "\n" +
+                "Валюта: " + currency + "\n" +
+                "Курс валюты: " + currencyValue + "\n";
     }
 
 }

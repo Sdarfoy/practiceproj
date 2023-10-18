@@ -92,7 +92,7 @@ public class MainForm extends JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(MainForm.this, "Не удалось загрузить документ");
+                e.printStackTrace();
             }
         });
 

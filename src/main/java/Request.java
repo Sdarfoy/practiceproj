@@ -33,10 +33,10 @@ public class Request extends Document {
 
     @Override
     public  String getOtherFields() {
-        return "Контрагент: " + counterParty + System.lineSeparator() +
-                "Валюта: " + currency + System.lineSeparator() +
-                "Курс валюты: " + currencyValue + System.lineSeparator() +
-                "Коммиссия: " + commission + System.lineSeparator();
+        return "Контрагент: " + counterParty + "\n" +
+                "Валюта: " + currency + "\n" +
+                "Курс валюты: " + currencyValue + "\n" +
+                "Коммиссия: " + commission + "\n";
     }
 
 }

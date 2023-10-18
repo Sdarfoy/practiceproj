@@ -19,6 +19,6 @@ public class Payment extends Document {
     }
     @Override
     public  String getOtherFields() {
-        return "Сотрудник: " + employer + System.lineSeparator();
+        return "Сотрудник: " + employer + "\n";
     }
 }

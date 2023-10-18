@@ -49,12 +49,12 @@ public abstract class Document {
     }
 
     public String toStringField() {
-        return "Тип документа: " + docType + System.lineSeparator() +
-                "Пользователь: " + user + System.lineSeparator() +
-                "Номер документа: " + number + System.lineSeparator() +
+        return "Тип документа: " + docType + "\n" +
+                "Пользователь: " + user + "\n" +
+                "Номер документа: " + number + "\n" +
                 getOtherFields() +
-                "Сумма: " + sum + System.lineSeparator() +
-                "Дата: " + date;
+                "Сумма: " + sum + "\n" +
+                "Дата: " + date + "\n";
     }
 
     public abstract String getTranslatedDocType();
